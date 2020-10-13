@@ -12,8 +12,9 @@ int main(int argc, char **argv) {
     int x, x_receve;
     int n = 10;
     int *buffer, *buffer_receve;
+    double total_time = 0.0;
 // Input reading for process 0
-
+    total_time -= MPI_Wtime();
     if (rank == 0) {
 /********* reading the number of elements in n_elements  ********/
         printf("Digite o elemento x\n");
@@ -38,10 +39,13 @@ int main(int argc, char **argv) {
                 bool = 1;
             }
         }
+        total_time += MPI_Wtime();
         if (bool) {
             printf("O número %d pertence ao conjunto S\n", x_receve);
+            printf("Demorou %f\n", total_time);
         } else {
             printf("O número %d não pertence ao conjunto S\n", x_receve);
+            printf("Demorou %f\n", total_time);
         }
     }
 

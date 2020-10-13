@@ -10,7 +10,10 @@ int main(int argc, char **argv) {
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     int x, x_receive, element, num;
-    int n = 10;
+    int n = 100;
+    double total_time = 0.0;
+
+    total_time -= MPI_Wtime();
 
     if (rank == 0) {
         printf("Digite o elemento x\n");
@@ -28,9 +31,14 @@ int main(int argc, char **argv) {
             printf("passei %d pertence ao conjunto %d rankS  %d\n", element, rank, (rank / size) + 1);
 
             if (x_receive == element) {
+
                 printf("O número %d pertence ao conjunto S\n", x_receive);
+
+
             }
         }
+        total_time += MPI_Wtime();
+        printf("Demorou %f\n", total_time);
     }
     MPI_Finalize();
 
